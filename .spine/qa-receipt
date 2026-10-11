@@ -1,0 +1,4 @@
+sha:     4d33418ed23eeb1d6e26b456db678966ad6fe6ff
+verdict: pass
+branch:  main
+flows:   Landing page e2e 25/25 (desktop 1920, laptop 1024, mobile 390 touch, reduced motion) via npm run test:e2e
