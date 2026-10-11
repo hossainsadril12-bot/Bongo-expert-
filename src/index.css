@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+  --font-inter: "Inter", sans-serif;
+  --font-manrope: "Manrope", sans-serif;
+  --font-kantumruy: "Kantumruy Pro", sans-serif;
+
+  --color-blue-dark: #0242be;
+  --color-blue-normal: #0258fd;
+  --color-blue-active: #0246ca;
+  --color-blue-light: #e6eeff;
+  /* Figma #959595 fails AA on small text; #767676 is the lightest grey that passes 4.5:1 on white */
+  --color-secondary: #767676;
+  --color-ink: #3b3b3b;
+
+  /* Motion: slow, soft deceleration. Plain `transition-*` classes default to these. */
+  --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-lux-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --default-transition-duration: 500ms;
+  --default-transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Lenis drives smooth scrolling; native smooth scroll would fight it */
+html {
+  scroll-padding-top: 24px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-inter);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-blue-normal);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+

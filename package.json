@@ -1,0 +1,29 @@
+{
+  "name": "bongo-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "vitest run", "test:e2e": "node e2e/landing.e2e.mjs"
+  },
+  "dependencies": {
+    "lenis": "^1.3.26",
+    "motion": "^14.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@vitejs/plugin-react": "^5.0.0",
+    "agentation": "^3.1.2",
+    "jsdom": "^29.1.1",
+    "playwright-core": "^1.64.0",
+    "tailwindcss": "^4.0.0",
+    "vite": "^7.0.0",
+    "vitest": "^5.0.3"
+  }
+}
