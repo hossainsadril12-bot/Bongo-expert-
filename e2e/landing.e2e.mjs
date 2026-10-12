@@ -155,11 +155,12 @@ console.log('\nDesktop 1920x945')
     assert(s.length === 3, `expected 3 rows, got ${s.length}`)
     s.forEach((r, i) => {
       assert(r.loaded, `row ${i + 1} image did not load`)
-      assert(r.clip === 'inset(-8%)', `row ${i + 1} clip stuck at ${r.clip}`)
+      // The wipe ends at inset(-8%) and then drops the clip, so the hover tag can pass the frame edge
+      assert(r.clip === 'none', `row ${i + 1} clip stuck at ${r.clip}`)
     })
   })
 
-  await check('project image tilt resets when the page scrolls under a still cursor', async () => {
+  await check('project image tilt ends on scroll and resumes only on a real pointer move', async () => {
     const rowTop = await page.evaluate(() => document.querySelector('#work article').getBoundingClientRect().top + scrollY)
     await scrollTo(page, rowTop - 150)
     await page.waitForTimeout(2200)
@@ -179,7 +180,11 @@ console.log('\nDesktop 1920x945')
     await page.mouse.wheel(0, -900)
     await settle(page)
     await page.waitForTimeout(1200)
-    assert(!flat(await tilt()), 'did not tilt again when scrolled back under the cursor')
+    // Scrolling the image back under a still cursor must not re-tilt it (that made passing images flicker)
+    assert(flat(await tilt()), `tilted from scrolling alone: ${await tilt()}`)
+    await page.mouse.move(bb.x + bb.width * 0.85, bb.y + bb.height * 0.25, { steps: 4 })
+    await page.waitForTimeout(1500)
+    assert(!flat(await tilt()), 'did not tilt again on pointer move after scrolling back')
     await page.mouse.move(1900, 10)
   })
 

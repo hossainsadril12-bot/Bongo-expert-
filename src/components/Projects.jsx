@@ -46,10 +46,15 @@ const v = {
     hidden: { scaleY: 0 },
     visible: { scaleY: 1, transition: { duration: dur.line, ease: easeInOut, delay: 0.3 } },
   },
-  // Sides and top rest 8% outside the frame so the hover tilt's corners are never cropped
+  // Sides and top rest 8% outside the frame so the hover tilt's corners are never cropped.
+  // The clip is dropped once the wipe ends so the "View project" tag can pass the frame edge.
   image: {
     hidden: { clipPath: 'inset(-8% -8% 108% -8%)' },
-    visible: { clipPath: 'inset(-8% -8% -8% -8%)', transition: { duration: dur.image, ease: easeInOut, delay: 0.2 } },
+    visible: {
+      clipPath: 'inset(-8% -8% -8% -8%)',
+      transitionEnd: { clipPath: 'none' },
+      transition: { duration: dur.image, ease: easeInOut, delay: 0.2 },
+    },
   },
   mask: {
     hidden: { y: '105%' },

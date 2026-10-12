@@ -49,6 +49,16 @@ export default function TiltImage({ src, alt, className = '', label = 'View proj
   const tagX = useSpring(useMotionValue(0), { stiffness: 180, damping: 26 })
   const tagY = useSpring(useMotionValue(0), { stiffness: 180, damping: 26 })
   const tagScale = useSpring(hover, { stiffness: 140, damping: 22 })
+  // Hover zoom follows this image's own hover state, not CSS :hover on the whole row, which
+  // Chrome only re-evaluates after scrolling stops and so fired at random moments
+  const imgScale = useSpring(useTransform(hover, [0, 1], [1.12, 1.16]), { stiffness: 40, damping: 20 })
+
+  const leave = () => {
+    if (hover.get() === 0) return
+    px.set(0.5)
+    py.set(0.5)
+    hover.set(0)
+  }
 
   // Hit-test against the untilted outer frame (a rotated rect would skew the maths)
   const sync = () => {
@@ -58,13 +68,11 @@ export default function TiltImage({ src, alt, className = '', label = 'View proj
     const x = cursor.x - r.left
     const y = cursor.y - r.top
     const inside = x >= 0 && y >= 0 && x <= r.width && y <= r.height
-    if (!inside) {
-      if (hover.get() !== 0) {
-        px.set(0.5)
-        py.set(0.5)
-        hover.set(0)
-      }
-      return
+    if (!inside) return leave()
+    if (hover.get() === 0) {
+      // Start the tag at the cursor; springing from 0,0 made it fly in from the corner
+      tagX.jump(x + 14)
+      tagY.jump(y + 14)
     }
     hover.set(1)
     px.set(x / r.width)
@@ -73,9 +81,12 @@ export default function TiltImage({ src, alt, className = '', label = 'View proj
     tagY.set(y + 14)
   }
 
+  // Scrolling slides the page under a still cursor. Re-running the hit-test here made every image
+  // that passed under the pointer tilt and flash its tag, so scrolling ends the hover instead;
+  // the next real pointer move picks it back up.
   const { scrollY } = useScroll()
   useMotionValueEvent(scrollY, 'change', () => {
-    if (active) sync()
+    if (active) leave()
   })
 
   useEffect(() => {
@@ -102,27 +113,28 @@ export default function TiltImage({ src, alt, className = '', label = 'View proj
   }
 
   return (
-    <div ref={frame} className={`[perspective:1100px] ${className}`}>
+    <div ref={frame} className={`relative [perspective:1100px] ${className}`}>
       <motion.div
         className="relative size-full cursor-pointer overflow-hidden rounded-lg"
         style={{ rotateX, rotateY }}
       >
-        {/* Only `scale` transitions on hover; `transform` is left to the scroll drift */}
         <motion.img
           src={src}
           alt={alt}
           loading={eager ? 'eager' : 'lazy'}
-          className="size-full scale-[1.12] object-cover transition-[scale] duration-[1200ms] ease-lux group-hover:scale-[1.16]"
-          style={y ? { y } : undefined}
+          className="size-full object-cover"
+          style={y ? { y, scale: imgScale } : { scale: imgScale }}
         />
-        <motion.span
-          aria-hidden="true"
-          className="pointer-events-none absolute top-0 left-0 rounded-full bg-white/90 px-3 py-1.5 text-xs font-medium whitespace-nowrap text-blue-dark shadow-[0_4px_16px_rgba(10,16,21,0.18)] backdrop-blur-md"
-          style={{ x: tagX, y: tagY, scale: tagScale, opacity: tagScale }}
-        >
-          {label}
-        </motion.span>
       </motion.div>
+      {/* The tag lives outside the tilted card: inside it, the card's clipping cut it off at the
+          edges, and a backdrop blur re-rendered under a 3D transform caused frame hitches */}
+      <motion.span
+        aria-hidden="true"
+        className="pointer-events-none absolute top-0 left-0 z-10 rounded-full bg-white/95 px-3 py-1.5 text-xs font-medium whitespace-nowrap text-blue-dark shadow-[0_4px_16px_rgba(10,16,21,0.18)]"
+        style={{ x: tagX, y: tagY, scale: tagScale, opacity: tagScale }}
+      >
+        {label}
+      </motion.span>
     </div>
   )
 }
