@@ -1,4 +1,3 @@
-import { useRef } from 'react'
 import { motion, useReducedMotion, useTransform } from 'motion/react'
 import BlurWords from './BlurWords'
 import MobileMenu from './MobileMenu'
@@ -27,7 +26,6 @@ const line = {
 // `cover` is 0 while the hero is fully visible and 1 once the next section has slid over it.
 export default function Hero({ cover }) {
   const reduce = useReducedMotion()
-  const loopRef = useRef(null)
   const init = (v) => (reduce ? false : v)
 
   const contentY = useTransform(cover, [0, 1], [0, -140])
@@ -38,31 +36,13 @@ export default function Hero({ cover }) {
     <section className="sticky top-0 h-[100dvh] min-h-[640px] w-full overflow-hidden bg-[#0a1015]">
       {/* No scroll zoom on the video: scaling a playing 1080p video every frame dropped scrolling to ~40fps */}
       <div className="absolute inset-0">
-        {/* Background: the intro plays once, then hands off to a forward-only loop whose seam is a
-            2s crossfade, so the streaks keep flowing while the figure holds still. The loop's first
-            frame matches the intro's last. Both files have no audio and are muted so autoplay is allowed. */}
-        <video
-          ref={loopRef}
-          src="/assets/hero-loop.mp4"
-          muted
-          loop
-          playsInline
-          preload="auto"
+        {/* Static hero image for now. The intro/loop videos (hero-intro.mp4, hero-loop.mp4) are
+            still in public/assets if the video background comes back. */}
+        <img
+          src="/assets/hero.png"
+          alt=""
+          fetchPriority="high"
           aria-hidden="true"
-          className="absolute inset-0 size-full object-cover object-[75%_center]"
-        />
-        <video
-          src="/assets/hero-intro.mp4"
-          poster="/assets/hero.png"
-          autoPlay={!reduce}
-          muted
-          playsInline
-          preload="auto"
-          aria-hidden="true"
-          onEnded={(e) => {
-            loopRef.current?.play()
-            e.currentTarget.style.visibility = 'hidden'
-          }}
           className="absolute inset-0 size-full object-cover object-[75%_center]"
         />
       </div>
