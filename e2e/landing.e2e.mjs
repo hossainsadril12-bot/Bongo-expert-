@@ -35,7 +35,26 @@ async function openPage(browser, opts = {}) {
   return { ctx, page, errors }
 }
 
-const scrollTo = (page, y) => page.evaluate((y) => window.scrollTo(0, y), y)
+// Waits for any running Lenis glide to finish first; a jump issued mid-glide gets overridden by it
+const scrollTo = async (page, y) => {
+  await settle(page)
+  await page.evaluate((y) => window.scrollTo(0, y), y)
+}
+// Resolves once the page has stopped scrolling (same scrollY across 300ms), up to 6s
+const settle = (page) =>
+  page.evaluate(
+    () =>
+      new Promise((done) => {
+        let last = -1
+        const start = performance.now()
+        const tick = () => {
+          if (window.scrollY === last || performance.now() - start > 6000) return done()
+          last = window.scrollY
+          setTimeout(tick, 300)
+        }
+        tick()
+      }),
+  )
 const docTop = (page, sel) =>
   page.evaluate((s) => document.querySelector(s).getBoundingClientRect().top + window.scrollY, sel)
 const noOverflow = (page) =>
@@ -86,12 +105,17 @@ console.log('\nDesktop 1920x945')
 
   await check('nav anchors land on their sections', async () => {
     for (const [label, sel] of [['Process', '#process'], ['Work', '#work'], ['About', '#about']]) {
+      // Poll instead of fixed sleeps: the 2s anchor glide can run long on a busy dev server.
+      // Let any running glide finish first, or Lenis carries on toward its old target after the jump.
+      await settle(page)
       await scrollTo(page, 0)
-      await page.waitForTimeout(600)
+      await settle(page)
       await page.locator('nav[aria-label=Primary] a', { hasText: label }).click()
-      await page.waitForTimeout(2600)
+      const landed = await page
+        .waitForFunction((s) => Math.abs(document.querySelector(s).getBoundingClientRect().top) <= 40, sel, { timeout: 5000, polling: 100 })
+        .then(() => true, () => false)
       const top = await page.evaluate((s) => document.querySelector(s).getBoundingClientRect().top, sel)
-      assert(Math.abs(top) <= 40, `${label}: ${sel} top is ${Math.round(top)}px after click`)
+      assert(landed, `${label}: ${sel} top is ${Math.round(top)}px after click`)
     }
   })
 
@@ -102,6 +126,7 @@ console.log('\nDesktop 1920x945')
         getComputedStyle(els[0]).color,
         getComputedStyle(els[els.length - 1]).color,
       ])
+    await settle(page)
     await scrollTo(page, top - 600)
     await page.waitForTimeout(900)
     const [first, last] = await colours()
@@ -140,16 +165,21 @@ console.log('\nDesktop 1920x945')
     await page.waitForTimeout(2200)
     const frame = page.locator('#work article').first().locator('.cursor-pointer')
     const tilt = () => frame.evaluate((d) => getComputedStyle(d).transform)
+    // The tilt spring eases out asymptotically, so "flat" means within 0.005 (~0.3°) of identity, not exactly 'none'
+    const flat = (t) => t === 'none' || t.slice(t.indexOf('(') + 1, -1).split(',').map(Number)
+      .every((v, i) => Math.abs(v - [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1][i]) < 0.005)
     const bb = await frame.boundingBox()
     await page.mouse.move(bb.x + bb.width * 0.9, bb.y + bb.height * 0.2, { steps: 4 })
     await page.waitForTimeout(1500)
-    assert((await tilt()) !== 'none', 'image did not tilt on hover')
+    assert(!flat(await tilt()), 'image did not tilt on hover')
     await page.mouse.wheel(0, 900)
-    await page.waitForTimeout(2500)
-    assert((await tilt()) === 'none', `still tilted after scrolling away: ${await tilt()}`)
+    await settle(page)
+    await page.waitForTimeout(1200)
+    assert(flat(await tilt()), `still tilted after scrolling away: ${await tilt()}`)
     await page.mouse.wheel(0, -900)
-    await page.waitForTimeout(2500)
-    assert((await tilt()) !== 'none', 'did not tilt again when scrolled back under the cursor')
+    await settle(page)
+    await page.waitForTimeout(1200)
+    assert(!flat(await tilt()), 'did not tilt again when scrolled back under the cursor')
     await page.mouse.move(1900, 10)
   })
 
@@ -158,7 +188,7 @@ console.log('\nDesktop 1920x945')
     const expected = ['Design', 'Web Development', 'App Development', 'AI Consultant']
     for (let i = 0; i < 4; i++) {
       await scrollTo(page, top + i * vh)
-      await page.waitForTimeout(1900)
+      await page.waitForTimeout(3200)
       const s = await page.evaluate(() => {
         const sticky = document.querySelector('#services > .sticky')
         const layers = [...sticky.children].filter((l) => getComputedStyle(l).opacity === '1')
@@ -256,6 +286,10 @@ console.log('\nLaptop 1024x768')
     const pinned = await page.$('#process > .sticky')
     assert(!pinned, 'process is pinned at 1024px')
   })
+  await check('tablet keeps the nav links and header button, no hamburger', async () => {
+    assert(!(await page.getByRole('button', { name: 'Open menu' }).isVisible()), 'hamburger visible at 1024px')
+    assert(await page.locator('header a', { hasText: 'Start a Project' }).isVisible(), 'header pill hidden at 1024px')
+  })
   await check('no console errors at 1024px', async () => assert(errors.length === 0, errors.slice(0, 3).join(' | ')))
   await ctx.close()
 }
@@ -290,6 +324,26 @@ console.log('\nMobile 390x844 (touch)')
   })
   await check('contact is the plain panel on mobile', async () => {
     assert(!(await page.$('#contact > .sticky')), 'contact is pinned on mobile')
+  })
+  await check('hamburger menu opens, closes on Escape, and its links scroll to sections', async () => {
+    await scrollTo(page, 0)
+    await page.waitForTimeout(600)
+    const open = page.getByRole('button', { name: 'Open menu' })
+    assert(await open.isVisible(), 'hamburger not visible')
+    assert(!(await page.locator('header a', { hasText: 'Start a Project' }).isVisible()), 'header pill still visible')
+    await open.click()
+    await page.waitForTimeout(1500)
+    assert(await page.$eval('#mobile-menu', (d) => d.open), 'menu did not open')
+    await page.keyboard.press('Escape')
+    await page.waitForTimeout(1000)
+    assert(!(await page.$eval('#mobile-menu', (d) => d.open)), 'Escape did not close the menu')
+    await open.click()
+    await page.waitForTimeout(1500)
+    await page.locator('#mobile-menu a', { hasText: 'Process' }).click()
+    await page.waitForTimeout(3200)
+    const top = await page.evaluate(() => document.querySelector('#process').getBoundingClientRect().top)
+    assert(Math.abs(top) <= 40, `#process top is ${Math.round(top)}px after menu click`)
+    assert((await page.evaluate(() => document.documentElement.style.overflow)) === '', 'page still scroll-locked')
   })
   await check('no console errors on mobile', async () => assert(errors.length === 0, errors.slice(0, 3).join(' | ')))
   await page.screenshot({ path: new URL('mobile-top.png', OUT).pathname.slice(1) })

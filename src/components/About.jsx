@@ -16,7 +16,7 @@ export default function About() {
           />
         </div>
 
-        <Reveal className="flex gap-6 lg:col-span-7 lg:self-end" delay={0.1}>
+        <Reveal className="flex gap-6 lg:col-span-7 lg:self-end" delay={0.15}>
           <img
             src="/assets/work1.png"
             alt="Product interface in blue light"
@@ -33,7 +33,7 @@ export default function About() {
 
         <div className="lg:col-span-4 lg:col-start-9 lg:self-end">
           <BlurWords
-            stagger={0.02}
+            stagger={0.03}
             className="text-base leading-[1.5] tracking-[-0.32px] text-ink"
             text="We approach every project with precision, velocity, and longevity, considering every detail while removing anything unnecessary. We move with the focus and speed of a small senior team and create digital experiences designed to stay relevant long after current design trends fade."
           />

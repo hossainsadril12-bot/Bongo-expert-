@@ -44,12 +44,12 @@ const v = {
   },
   vline: {
     hidden: { scaleY: 0 },
-    visible: { scaleY: 1, transition: { duration: dur.line, ease: easeInOut, delay: 0.2 } },
+    visible: { scaleY: 1, transition: { duration: dur.line, ease: easeInOut, delay: 0.3 } },
   },
   // Sides and top rest 8% outside the frame so the hover tilt's corners are never cropped
   image: {
     hidden: { clipPath: 'inset(-8% -8% 108% -8%)' },
-    visible: { clipPath: 'inset(-8% -8% -8% -8%)', transition: { duration: dur.image, ease: easeInOut, delay: 0.15 } },
+    visible: { clipPath: 'inset(-8% -8% -8% -8%)', transition: { duration: dur.image, ease: easeInOut, delay: 0.2 } },
   },
   mask: {
     hidden: { y: '105%' },
@@ -62,7 +62,7 @@ const v = {
 }
 
 // Words rise one by one through a clipping mask. pb/-mb keep descenders (the "j" in Projects) unclipped.
-function MaskWords({ words, delay = 0, stagger = 0.12 }) {
+function MaskWords({ words, delay = 0, stagger = 0.17 }) {
   return words.map((w, i) => (
     <span key={i}>
       <span className="-mb-[0.12em] inline-block overflow-hidden pb-[0.12em] align-bottom">
@@ -125,20 +125,20 @@ function ProjectRow({ project }) {
         <motion.span
           className="absolute top-[21px] right-0 hidden font-light tracking-[-0.32px] text-secondary xl:block"
           variants={v.fade}
-          custom={0.8}
+          custom={1.15}
         >
           Germany
         </motion.span>
         <div className="flex flex-col gap-4 lg:max-w-[520px]">
           <h3 className="font-manrope text-[28px] leading-[1.3] font-medium tracking-[-0.64px] text-ink lg:text-[32px]">
-            <MaskWords words={title.split(' ').map((text) => ({ text }))} delay={0.4} stagger={0.06} />
+            <MaskWords words={title.split(' ').map((text) => ({ text }))} delay={0.55} stagger={0.09} />
           </h3>
-          <motion.p className="font-light leading-[1.5] tracking-[-0.32px] text-ink" variants={v.fade} custom={0.65}>
+          <motion.p className="font-light leading-[1.5] tracking-[-0.32px] text-ink" variants={v.fade} custom={0.9}>
             {body}
           </motion.p>
         </div>
         <dl className="grid grid-cols-2 gap-6 text-xs leading-[1.5] tracking-[-0.24px] sm:grid-cols-3">
-          <Meta label="Deliverable" d={0.85}>
+          <Meta label="Deliverable" d={1.2}>
             <ul className="flex flex-col gap-1">
               {deliverables.map((d) => (
                 <li key={d}>{d}</li>
@@ -146,12 +146,12 @@ function ProjectRow({ project }) {
             </ul>
           </Meta>
           <div className="flex flex-col justify-between gap-6">
-            <Meta label="Industry" d={0.95}>Digital Agency</Meta>
-            <Meta label="Live Site" d={1.05}>{site}</Meta>
+            <Meta label="Industry" d={1.34}>Digital Agency</Meta>
+            <Meta label="Live Site" d={1.48}>{site}</Meta>
           </div>
           <div className="flex flex-col justify-between gap-6">
-            <Meta label="Published" d={1.15}>2026</Meta>
-            <Meta label="Timeline" d={1.25}>8 weeks</Meta>
+            <Meta label="Published" d={1.62}>2026</Meta>
+            <Meta label="Timeline" d={1.76}>8 weeks</Meta>
           </div>
         </dl>
       </div>
@@ -177,7 +177,7 @@ export default function Projects() {
             </motion.div>
             <h2 className="font-manrope text-[40px] leading-[1.3] font-semibold tracking-[-1.28px] lg:text-[64px]">
               <MaskWords
-                delay={0.15}
+                delay={0.2}
                 words={[
                   { text: 'Selected', className: 'text-ink' },
                   { text: 'Projects', className: 'text-blue-dark' },
@@ -189,7 +189,7 @@ export default function Projects() {
             href="#work"
             className="mb-3 shrink-0 text-base leading-[1.5] text-secondary underline underline-offset-4 transition-colors duration-500 ease-lux hover:text-ink"
             variants={v.fade}
-            custom={0.55}
+            custom={0.8}
           >
             More (10+)
           </motion.a>

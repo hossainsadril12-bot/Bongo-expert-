@@ -109,7 +109,7 @@ export default function Process() {
       <Label>Working Process</Label>
       <BlurWords
         as="h2"
-        stagger={0.06}
+        stagger={0.09}
         className="mt-7 max-w-[558px] font-manrope text-[40px] leading-[0.95] font-semibold tracking-[-1.28px] lg:text-[64px]"
         text="A disciplined path to launch"
       />
@@ -144,7 +144,7 @@ export default function Process() {
         <ol className="mt-16 grid gap-4 sm:grid-cols-2 lg:mt-[96px] xl:grid-cols-4">
           {steps.map((s, i) => (
             <li key={s.n}>
-              <Reveal delay={i * 0.12}>
+              <Reveal delay={i * 0.18}>
                 <Card step={s} />
               </Reveal>
             </li>

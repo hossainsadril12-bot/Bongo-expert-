@@ -20,7 +20,7 @@ export default function Footer() {
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
           <BlurWords
             as="h2"
-            stagger={0.07}
+            stagger={0.1}
             className="font-manrope text-[48px] leading-[0.95] font-bold tracking-[-1.28px] lg:text-[64px]"
             segments={[{ text: 'Have an idea?' }, { br: true }, { text: 'Let’s Build It' }]}
           />

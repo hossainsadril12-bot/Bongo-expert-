@@ -1,5 +1,8 @@
+import { useRef } from 'react'
 import { motion, useReducedMotion, useTransform } from 'motion/react'
 import BlurWords from './BlurWords'
+import MobileMenu from './MobileMenu'
+import StartButton from './StartButton'
 import { dur, ease, stagger } from '../lib/motion'
 
 const links = [
@@ -14,42 +17,66 @@ const arrive = { duration: dur.block, ease: ease.out }
 
 const lines = {
   hidden: {},
-  visible: { transition: { staggerChildren: stagger.lines, delayChildren: 0.45 } },
+  visible: { transition: { staggerChildren: stagger.lines, delayChildren: 0.6 } },
 }
 const line = {
   hidden: { opacity: 0, y: 48, filter: 'blur(12px)' },
-  visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 1.3, ease: ease.out } },
+  visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 1.9, ease: ease.out } },
 }
 
 // `cover` is 0 while the hero is fully visible and 1 once the next section has slid over it.
 export default function Hero({ cover }) {
   const reduce = useReducedMotion()
+  const loopRef = useRef(null)
   const init = (v) => (reduce ? false : v)
 
   const contentY = useTransform(cover, [0, 1], [0, -140])
   const contentOpacity = useTransform(cover, [0, 0.75], [1, 0])
-  const imageScale = useTransform(cover, [0, 1], [1, 1.08])
   const dim = useTransform(cover, [0, 1], [0, 0.55])
 
   return (
     <section className="sticky top-0 h-[100dvh] min-h-[640px] w-full overflow-hidden bg-[#0a1015]">
-      <motion.div className="absolute inset-0" style={reduce ? undefined : { scale: imageScale }}>
-        <img
-          src="/assets/hero.png"
-          alt=""
-          fetchPriority="high"
-          className="size-full object-cover object-[75%_center]"
+      {/* No scroll zoom on the video: scaling a playing 1080p video every frame dropped scrolling to ~40fps */}
+      <div className="absolute inset-0">
+        {/* Background: the intro plays once, then hands off to a forward-only loop whose seam is a
+            2s crossfade, so the streaks keep flowing while the figure holds still. The loop's first
+            frame matches the intro's last. Both files have no audio and are muted so autoplay is allowed. */}
+        <video
+          ref={loopRef}
+          src="/assets/hero-loop.mp4"
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-hidden="true"
+          className="absolute inset-0 size-full object-cover object-[75%_center]"
         />
-      </motion.div>
+        <video
+          src="/assets/hero-intro.mp4"
+          poster="/assets/hero.png"
+          autoPlay={!reduce}
+          muted
+          playsInline
+          preload="auto"
+          aria-hidden="true"
+          onEnded={(e) => {
+            loopRef.current?.play()
+            e.currentTarget.style.visibility = 'hidden'
+          }}
+          className="absolute inset-0 size-full object-cover object-[75%_center]"
+        />
+      </div>
       {/* Load-in: the photo lifts out of darkness, like a light being brought up */}
       <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[#0a1015]"
         initial={init({ opacity: 1 })}
         animate={{ opacity: 0 }}
-        transition={{ duration: 1.6, ease: ease.out }}
+        transition={{ duration: 2.2, ease: ease.out }}
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-white/70 via-white/30 to-transparent lg:hidden" aria-hidden="true" />
+      {/* Phones: copy stacks over the face, so lighten from the top down. Tablets: copy sits beside it, so lighten from the left. */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/85 via-white/55 via-55% to-transparent sm:hidden" aria-hidden="true" />
+      <div className="absolute inset-0 hidden bg-gradient-to-r from-white/70 via-white/30 to-transparent sm:block lg:hidden" aria-hidden="true" />
       {/* Scroll: the hero darkens as the next section covers it */}
       <motion.div
         aria-hidden="true"
@@ -64,10 +91,10 @@ export default function Hero({ cover }) {
         <header className="flex items-center justify-between gap-4">
           <motion.nav
             aria-label="Primary"
-            className="flex h-[72px] items-center gap-9 rounded-[60px] bg-white p-2 drop-shadow-[0_4px_4px_rgba(0,0,0,0.08)]"
+            className="flex h-[72px] items-center gap-9 rounded-[60px] bg-white px-1 py-2 drop-shadow-[0_4px_4px_rgba(0,0,0,0.08)]"
             initial={init({ x: -56, opacity: 0 })}
             animate={{ x: 0, opacity: 1 }}
-            transition={{ ...arrive, delay: 0.6 }}
+            transition={{ ...arrive, delay: 0.8 }}
           >
             <a href="#" className="relative block size-[65px] shrink-0" aria-label="Bongo home">
               <span className="absolute inset-0 rounded-full bg-gradient-to-b from-[#3a7dff] from-[7%] to-[#234b99] to-[89%]" />
@@ -98,13 +125,22 @@ export default function Hero({ cover }) {
 
           <motion.a
             href="#contact"
-            className="inline-flex h-14 shrink-0 items-center rounded-full border border-white bg-white/80 px-6 text-base text-blue-dark shadow-[0_0_2px_rgba(0,0,0,0.16)] backdrop-blur-xl transition-[background-color,box-shadow,scale] duration-500 ease-lux hover:bg-white hover:shadow-[0_4px_16px_rgba(2,66,190,0.18)] active:scale-[0.98]"
+            className="hidden h-14 shrink-0 items-center rounded-full border border-white bg-white/80 px-6 text-base text-blue-dark shadow-[0_0_2px_rgba(0,0,0,0.16)] backdrop-blur-xl transition-[background-color,box-shadow,scale] duration-500 ease-lux hover:bg-white hover:shadow-[0_4px_16px_rgba(2,66,190,0.18)] active:scale-[0.98] sm:inline-flex"
             initial={init({ x: 56, opacity: 0 })}
             animate={{ x: 0, opacity: 1 }}
-            transition={{ ...arrive, delay: 0.75 }}
+            transition={{ ...arrive, delay: 1.0 }}
           >
             Start a Project
           </motion.a>
+          {/* Phones: the links don't fit the nav pill, so they move into a menu behind this button */}
+          <MobileMenu
+            links={links}
+            buttonMotion={{
+              initial: init({ x: 56, opacity: 0 }),
+              animate: { x: 0, opacity: 1 },
+              transition: { ...arrive, delay: 1.0 },
+            }}
+          />
         </header>
 
         <div className="mt-[clamp(40px,9vh,100px)] flex flex-col gap-9 text-[#252525]">
@@ -126,8 +162,8 @@ export default function Hero({ cover }) {
           </motion.h1>
           <BlurWords
             immediate
-            delay={1.0}
-            stagger={0.035}
+            delay={1.4}
+            stagger={0.05}
             className="max-w-[364px] text-base leading-[1.5]"
             text="We turn complex ideas into intuitive, high-performance digital experiences."
           />
@@ -137,34 +173,9 @@ export default function Hero({ cover }) {
           className="mt-[clamp(28px,5vh,48px)] pb-10"
           initial={init({ y: 24, opacity: 0 })}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ ...arrive, delay: 1.35 }}
+          transition={{ ...arrive, delay: 1.9 }}
         >
-          {/* Hover: the arrow exits right while a twin enters from the left, and the pill brightens.
-              No hover scale (it made the text shimmer); only a 0.98 press on click. */}
-          <a
-            href="#contact"
-            className="group relative flex w-[312px] max-w-full items-center gap-1 overflow-hidden rounded-full border-2 border-white bg-gradient-to-b from-[#4f84ea] to-[#003498] to-[145%] px-2 py-3 shadow-[0_0_1px_rgba(0,0,0,0.16)] transition-[scale] duration-150 ease-out active:scale-[0.98]"
-          >
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 bg-white/0 transition-colors duration-700 ease-lux group-hover:bg-white/10"
-            />
-            <span className="relative flex size-[62px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-white">
-              <img
-                src="/assets/chevron-right.svg"
-                alt=""
-                className="size-8 transition-[translate] duration-[800ms] ease-lux-in-out group-hover:translate-x-[150%] motion-reduce:transition-none"
-              />
-              <img
-                src="/assets/chevron-right.svg"
-                alt=""
-                className="absolute size-8 -translate-x-[150%] transition-[translate] duration-[800ms] ease-lux-in-out group-hover:translate-x-0 group-hover:delay-150 motion-reduce:transition-none"
-              />
-            </span>
-            <span className="relative text-[28px] whitespace-nowrap text-blue-light sm:text-[32px]">
-              Start a Project
-            </span>
-          </a>
+          <StartButton />
         </motion.div>
       </motion.div>
     </section>

@@ -20,9 +20,27 @@ const services = [
     card: '/assets/design-card.png',
     cardAlt: 'Lunetra brand identity card',
   },
-  { id: 'web-development', title: 'Web Development', background: null, card: null, cardAlt: '' },
-  { id: 'app-development', title: 'App Development', background: null, card: null, cardAlt: '' },
-  { id: 'ai-consultant', title: 'AI Consultant', background: null, card: null, cardAlt: '' },
+  {
+    id: 'web-development',
+    title: 'Web Development',
+    background: '/assets/web-dev-bg.webp',
+    card: '/assets/web-dev-card.webp',
+    cardAlt: 'Portrait in warm orange light from the Aurelio website',
+  },
+  {
+    id: 'app-development',
+    title: 'App Development',
+    background: '/assets/app-dev-bg.webp',
+    card: '/assets/app-dev-card.webp',
+    cardAlt: 'Voxie AI voice editor app on a phone',
+  },
+  {
+    id: 'ai-consultant',
+    title: 'AI Consultant',
+    background: '/assets/ai-consult-bg.webp',
+    card: '/assets/ai-consult-card.webp',
+    cardAlt: 'AURA halo logo on an indigo gradient',
+  },
 ]
 
 const ease = eases.out
@@ -51,7 +69,10 @@ function Backdrop({ service }) {
   return (
     <>
       <img src={service.background} alt="" loading="lazy" className="absolute inset-0 size-full object-cover" />
-      <div className="absolute inset-0 bg-[rgba(32,32,32,0.12)] backdrop-blur-[12px]" />
+      <div className="absolute inset-0 bg-[rgba(32,32,32,0.12)] backdrop-blur-[24px]" />
+      {/* Title-side scrim: keeps the white heading readable on light artwork (App Development's grey
+          studio shot) and quiets type baked into a background (Web Development's blurred headline) */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0a1015]/60 via-[#0a1015]/20 to-transparent" />
     </>
   )
 }
@@ -73,13 +94,15 @@ function Layer({ service, active }) {
         className="absolute inset-0"
         initial={false}
         animate={{ scale: active ? 1 : 1.06 }}
-        transition={{ duration: 2, ease }}
+        transition={{ duration: 2.8, ease }}
       >
         <Backdrop service={service} />
       </motion.div>
 
       <div className="relative mx-auto flex h-full max-w-[1440px] items-center px-[60px]">
-        <h2 className="max-w-[36%] font-manrope text-[64px] leading-[1.1] font-semibold tracking-[-1.28px] text-white">
+        {/* Title must clear the centred 312px card: room = 50vw - 156px (half card) - 60px (padding) - 24px gap.
+            Font scales with that room ("Development" plus its gap needs ~6.6em), so tablets in landscape never tuck it under the card. */}
+        <h2 className="max-w-[min(36%,calc(50vw-240px))] font-manrope text-[clamp(40px,calc((50vw-240px)/6.6),64px)] leading-[1.1] font-semibold tracking-[-0.02em] text-white">
           {words.map((w, i) => (
             <span key={i}>
               <motion.span
@@ -90,7 +113,7 @@ function Layer({ service, active }) {
                     ? { opacity: 1, y: 0, filter: 'blur(0px)' }
                     : { opacity: 0, y: 16, filter: 'blur(10px)' }
                 }
-                transition={{ duration: active ? dur.text : dur.exit, ease, delay: active ? 0.3 + i * 0.1 : 0 }}
+                transition={{ duration: active ? dur.text : dur.exit, ease, delay: active ? 0.45 + i * 0.15 : 0 }}
               >
                 {w}
               </motion.span>
@@ -106,7 +129,7 @@ function Layer({ service, active }) {
               ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }
               : { opacity: 0, y: 40, scale: 0.96, filter: 'blur(8px)' }
           }
-          transition={{ duration: active ? dur.image : dur.exit, ease, delay: active ? 0.35 : 0 }}
+          transition={{ duration: active ? dur.image : dur.exit, ease, delay: active ? 0.5 : 0 }}
         >
           <Card service={service} />
         </motion.div>
@@ -161,7 +184,7 @@ function ServicePanel({ service }) {
       <div className="relative mx-auto flex min-h-[800px] max-w-[1440px] flex-col justify-center gap-12 px-5 py-20">
         <BlurWords
           as="h2"
-          stagger={0.08}
+          stagger={0.11}
           className="font-manrope text-[48px] leading-[1.1] font-semibold tracking-[-1.28px] text-white sm:text-[64px]"
           text={service.title}
         />

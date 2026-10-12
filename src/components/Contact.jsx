@@ -60,7 +60,7 @@ function PinnedContact() {
             <motion.div style={{ scale: headingScale }}>
               <BlurWords
                 as="h2"
-                stagger={0.1}
+                stagger={0.14}
                 className={`${headingClass} text-[clamp(96px,12.5vw,220px)]`}
                 text="GET IN TOUCH"
               />
@@ -85,7 +85,7 @@ function StaticContact() {
       <div className="relative flex min-h-[600px] flex-col items-center justify-center gap-8 px-5 lg:h-full">
         <BlurWords
           as="h2"
-          stagger={0.1}
+          stagger={0.14}
           className={`${headingClass} text-[48px] sm:text-[96px]`}
           text="GET IN TOUCH"
         />
