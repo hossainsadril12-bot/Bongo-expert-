@@ -1,0 +1,615 @@
+{
+  "color": {
+    "surface": {
+      "$value": "#FFFFFF",
+      "$type": "color",
+      "$description": "page background",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter",
+          "confidence": "high"
+        }
+      }
+    },
+    "surface-tint": {
+      "$value": "#F7F4FA",
+      "$type": "color",
+      "$description": "lilac-grey band",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter",
+          "confidence": "high"
+        }
+      }
+    },
+    "surface-dark": {
+      "$value": "#1A1A1A",
+      "$type": "color",
+      "$description": "dark plates",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter",
+          "confidence": "high"
+        }
+      }
+    },
+    "text-primary": {
+      "$value": "#1A1A1A",
+      "$type": "color",
+      "$description": "headings",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter",
+          "confidence": "high"
+        }
+      }
+    },
+    "text-body": {
+      "$value": "#696969",
+      "$type": "color",
+      "$description": "body copy",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter",
+          "confidence": "high"
+        }
+      }
+    },
+    "text-on-dark-muted": {
+      "$value": "#B3B3B3",
+      "$type": "color",
+      "$description": "body on dark",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter",
+          "confidence": "high"
+        }
+      }
+    },
+    "text-on-dark": {
+      "$value": "#FFFFFF",
+      "$type": "color",
+      "$description": "titles on dark",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter",
+          "confidence": "high"
+        }
+      }
+    },
+    "border-dark": {
+      "$value": "#00000026",
+      "$type": "color",
+      "$description": "hairline on light",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter",
+          "confidence": "high"
+        }
+      }
+    },
+    "border-light": {
+      "$value": "#FFFFFF4D",
+      "$type": "color",
+      "$description": "hairline on dark",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter",
+          "confidence": "high"
+        }
+      }
+    },
+    "primary-100": {
+      "$value": "#FF2A18",
+      "$type": "color",
+      "$description": "defined accent",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter",
+          "confidence": "high"
+        }
+      }
+    }
+  },
+  "typography": {
+    "font-family": {
+      "display": {
+        "$value": "Agdasima, sans-serif",
+        "$type": "fontFamily",
+        "$description": "hero \"Real-World AI / Success Stories\"",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "body": {
+        "$value": "DM Sans, sans-serif",
+        "$type": "fontFamily",
+        "$description": "all copy",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      }
+    },
+    "font-size": {
+      "display": {
+        "$value": "100px",
+        "$type": "dimension",
+        "$description": "hero \"Real-World AI / Success Stories\"",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "display-mobile": {
+        "$value": "45px",
+        "$type": "dimension",
+        "$description": "hero on 375px",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "section-title": {
+        "$value": "62px",
+        "$type": "dimension",
+        "$description": "\"TRUSTED BY INDUSTRY LEADERS\" (uppercase) ⚠️ size",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter",
+            "confidence": "medium"
+          }
+        }
+      },
+      "card-title": {
+        "$value": "24px",
+        "$type": "dimension",
+        "$description": "project names (uppercase) ⚠️",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter",
+            "confidence": "medium"
+          }
+        }
+      },
+      "stat-number": {
+        "$value": "56px",
+        "$type": "dimension",
+        "$description": "\"150+\" ⚠️",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter",
+            "confidence": "medium"
+          }
+        }
+      },
+      "body": {
+        "$value": "16px",
+        "$type": "dimension",
+        "$description": "all copy",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "body-large": {
+        "$value": "18px",
+        "$type": "dimension",
+        "$description": "footer address",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "label-bracket": {
+        "$value": "16px",
+        "$type": "dimension",
+        "$description": "\"[ Client Feedback ]\" with brackets",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      }
+    },
+    "font-weight": {
+      "display": {
+        "$value": 700,
+        "$type": "fontWeight",
+        "$description": "hero \"Real-World AI / Success Stories\"",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "display-mobile": {
+        "$value": 700,
+        "$type": "fontWeight",
+        "$description": "hero on 375px",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "section-title": {
+        "$value": 700,
+        "$type": "fontWeight",
+        "$description": "\"TRUSTED BY INDUSTRY LEADERS\" (uppercase) ⚠️ size",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter",
+            "confidence": "medium"
+          }
+        }
+      },
+      "card-title": {
+        "$value": 700,
+        "$type": "fontWeight",
+        "$description": "project names (uppercase) ⚠️",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter",
+            "confidence": "medium"
+          }
+        }
+      },
+      "stat-number": {
+        "$value": 400,
+        "$type": "fontWeight",
+        "$description": "\"150+\" ⚠️",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter",
+            "confidence": "medium"
+          }
+        }
+      },
+      "body": {
+        "$value": 400,
+        "$type": "fontWeight",
+        "$description": "all copy",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "body-large": {
+        "$value": 400,
+        "$type": "fontWeight",
+        "$description": "footer address",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "label-bracket": {
+        "$value": 400,
+        "$type": "fontWeight",
+        "$description": "\"[ Client Feedback ]\" with brackets",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      }
+    },
+    "line-height": {
+      "display": {
+        "$value": "100px",
+        "$type": "dimension",
+        "$description": "hero \"Real-World AI / Success Stories\"",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "display-mobile": {
+        "$value": "55px",
+        "$type": "dimension",
+        "$description": "hero on 375px",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "section-title": {
+        "$value": "72px",
+        "$type": "dimension",
+        "$description": "\"TRUSTED BY INDUSTRY LEADERS\" (uppercase) ⚠️ size",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter",
+            "confidence": "medium"
+          }
+        }
+      },
+      "card-title": {
+        "$value": "34px",
+        "$type": "dimension",
+        "$description": "project names (uppercase) ⚠️",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter",
+            "confidence": "medium"
+          }
+        }
+      },
+      "stat-number": {
+        "$value": 1,
+        "$type": "number",
+        "$description": "\"150+\" ⚠️",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter",
+            "confidence": "medium"
+          }
+        }
+      },
+      "body": {
+        "$value": "26px",
+        "$type": "dimension",
+        "$description": "all copy",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "body-large": {
+        "$value": "28px",
+        "$type": "dimension",
+        "$description": "footer address",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "label-bracket": {
+        "$value": "26px",
+        "$type": "dimension",
+        "$description": "\"[ Client Feedback ]\" with brackets",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      }
+    },
+    "letter-spacing": {
+      "label-bracket": {
+        "$value": "0.08em",
+        "$type": "dimension",
+        "$description": "\"[ Client Feedback ]\" with brackets",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      }
+    }
+  },
+  "spacing": {
+    "base": {
+      "$value": "5px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "5": {
+      "$value": "5px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "10": {
+      "$value": "10px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "15": {
+      "$value": "15px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "20": {
+      "$value": "20px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "25": {
+      "$value": "25px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "30": {
+      "$value": "30px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "35": {
+      "$value": "35px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "40": {
+      "$value": "40px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "45": {
+      "$value": "45px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "50": {
+      "$value": "50px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "60": {
+      "$value": "60px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "70": {
+      "$value": "70px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "80": {
+      "$value": "80px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "100": {
+      "$value": "100px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "section-padding": {
+      "$value": "100px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "section-padding-mobile": {
+      "$value": "60px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "container": {
+      "$value": "1330px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "container-gap": {
+      "$value": "15px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "card-gap": {
+      "$value": "30px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    }
+  },
+  "radius": {
+    "card": {
+      "$value": "10px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "pill": {
+      "$value": "999px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    }
+  },
+  "$extensions": {
+    "anydesign": {
+      "source": "https://algorix-ttm.webflow.io/projects",
+      "captured_at": "2026-10-27",
+      "method": "generated from design.md by scripts/build_tokens_json.py",
+      "spec": "W3C Design Tokens Community Group 2025.10"
+    }
+  }
+}

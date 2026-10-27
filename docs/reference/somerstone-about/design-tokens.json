@@ -1,0 +1,576 @@
+{
+  "color": {
+    "black": {
+      "$value": "#000000",
+      "$type": "color",
+      "$description": "headings, purpose band bg",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter",
+          "confidence": "high"
+        }
+      }
+    },
+    "white": {
+      "$value": "#FFFFFF",
+      "$type": "color",
+      "$description": "page surface",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter",
+          "confidence": "high"
+        }
+      }
+    },
+    "ink": {
+      "$value": "#333333",
+      "$type": "color",
+      "$description": "body text",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter",
+          "confidence": "high"
+        }
+      }
+    },
+    "grey-60": {
+      "$value": "#666666",
+      "$type": "color",
+      "$description": "secondary text, card border",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter",
+          "confidence": "high"
+        }
+      }
+    },
+    "grey-40": {
+      "$value": "#999999",
+      "$type": "color",
+      "$description": "labels, button border",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter",
+          "confidence": "high"
+        }
+      }
+    },
+    "grey-20": {
+      "$value": "#CCCCCC",
+      "$type": "color",
+      "$description": "text on black",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter",
+          "confidence": "medium"
+        }
+      }
+    },
+    "surface-soft": {
+      "$value": "#F4F4F4",
+      "$type": "color",
+      "$description": "hero tint with subtle noise",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter",
+          "confidence": "medium"
+        }
+      }
+    },
+    "border-light": {
+      "$value": "#DEDEDE",
+      "$type": "color",
+      "$description": "hairlines",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter",
+          "confidence": "high"
+        }
+      }
+    },
+    "card-dark": {
+      "$value": "#333333",
+      "$type": "color",
+      "$description": "overlap card, MENU button",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter",
+          "confidence": "high"
+        }
+      }
+    },
+    "card-darker": {
+      "$value": "#141414",
+      "$type": "color",
+      "$description": "value cards on black",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter",
+          "confidence": "medium"
+        }
+      }
+    },
+    "primary-lp": {
+      "$value": "#204CD1",
+      "$type": "color",
+      "$description": "blue defined in CSS",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter",
+          "confidence": "high"
+        }
+      }
+    }
+  },
+  "typography": {
+    "font-family": {
+      "display": {
+        "$value": "Manrope, sans-serif",
+        "$type": "fontFamily",
+        "$description": "H1 \"We've been where you are.\"",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      }
+    },
+    "font-size": {
+      "display": {
+        "$value": "72px",
+        "$type": "dimension",
+        "$description": "H1 \"We've been where you are.\"",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "display-mobile": {
+        "$value": "44.8px",
+        "$type": "dimension",
+        "$description": "H1 at 375px",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "section-title": {
+        "$value": "57.6px",
+        "$type": "dimension",
+        "$description": "\"Meet the experts.\"",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "lead": {
+        "$value": "19px",
+        "$type": "dimension",
+        "$description": "hero paragraph, purpose paragraph, team intro ⚠️",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter",
+            "confidence": "medium"
+          }
+        }
+      },
+      "body": {
+        "$value": "14px",
+        "$type": "dimension",
+        "$description": "bios, card text",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "eyebrow": {
+        "$value": "13px",
+        "$type": "dimension",
+        "$description": "\"◆ ABOUT SOMERSTONE\", \"◆ OUR PURPOSE\", \"◆ OUR TEAM\" (uppercase)",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "wordmark": {
+        "$value": "260px",
+        "$type": "dimension",
+        "$description": "footer \"Somerstone\" in grey #4D4D4D ⚠️",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter",
+            "confidence": "medium"
+          }
+        }
+      }
+    },
+    "font-weight": {
+      "display": {
+        "$value": 700,
+        "$type": "fontWeight",
+        "$description": "H1 \"We've been where you are.\"",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "display-mobile": {
+        "$value": 700,
+        "$type": "fontWeight",
+        "$description": "H1 at 375px",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "section-title": {
+        "$value": 700,
+        "$type": "fontWeight",
+        "$description": "\"Meet the experts.\"",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "lead": {
+        "$value": 400,
+        "$type": "fontWeight",
+        "$description": "hero paragraph, purpose paragraph, team intro ⚠️",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter",
+            "confidence": "medium"
+          }
+        }
+      },
+      "body": {
+        "$value": 400,
+        "$type": "fontWeight",
+        "$description": "bios, card text",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "eyebrow": {
+        "$value": 700,
+        "$type": "fontWeight",
+        "$description": "\"◆ ABOUT SOMERSTONE\", \"◆ OUR PURPOSE\", \"◆ OUR TEAM\" (uppercase)",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "wordmark": {
+        "$value": 600,
+        "$type": "fontWeight",
+        "$description": "footer \"Somerstone\" in grey #4D4D4D ⚠️",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter",
+            "confidence": "medium"
+          }
+        }
+      }
+    },
+    "line-height": {
+      "display": {
+        "$value": 0.95,
+        "$type": "number",
+        "$description": "H1 \"We've been where you are.\"",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "display-mobile": {
+        "$value": 0.95,
+        "$type": "number",
+        "$description": "H1 at 375px",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "section-title": {
+        "$value": 0.95,
+        "$type": "number",
+        "$description": "\"Meet the experts.\"",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "lead": {
+        "$value": 1.26,
+        "$type": "number",
+        "$description": "hero paragraph, purpose paragraph, team intro ⚠️",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter",
+            "confidence": "medium"
+          }
+        }
+      },
+      "body": {
+        "$value": "20px",
+        "$type": "dimension",
+        "$description": "bios, card text",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "eyebrow": {
+        "$value": 1,
+        "$type": "number",
+        "$description": "\"◆ ABOUT SOMERSTONE\", \"◆ OUR PURPOSE\", \"◆ OUR TEAM\" (uppercase)",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "wordmark": {
+        "$value": 1,
+        "$type": "number",
+        "$description": "footer \"Somerstone\" in grey #4D4D4D ⚠️",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter",
+            "confidence": "medium"
+          }
+        }
+      }
+    },
+    "letter-spacing": {
+      "display": {
+        "$value": "-0.036em",
+        "$type": "dimension",
+        "$description": "H1 \"We've been where you are.\"",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "display-mobile": {
+        "$value": "-0.036em",
+        "$type": "dimension",
+        "$description": "H1 at 375px",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "section-title": {
+        "$value": "-0.032em",
+        "$type": "dimension",
+        "$description": "\"Meet the experts.\"",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "lead": {
+        "$value": "-0.02em",
+        "$type": "dimension",
+        "$description": "hero paragraph, purpose paragraph, team intro ⚠️",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter",
+            "confidence": "medium"
+          }
+        }
+      },
+      "eyebrow": {
+        "$value": "-0.02em",
+        "$type": "dimension",
+        "$description": "\"◆ ABOUT SOMERSTONE\", \"◆ OUR PURPOSE\", \"◆ OUR TEAM\" (uppercase)",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter"
+          }
+        }
+      },
+      "wordmark": {
+        "$value": "-0.04em",
+        "$type": "dimension",
+        "$description": "footer \"Somerstone\" in grey #4D4D4D ⚠️",
+        "$extensions": {
+          "anydesign": {
+            "source": "design.md frontmatter",
+            "confidence": "medium"
+          }
+        }
+      }
+    }
+  },
+  "spacing": {
+    "base": {
+      "$value": "8px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "8": {
+      "$value": "8px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "12": {
+      "$value": "12px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "16": {
+      "$value": "16px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "24": {
+      "$value": "24px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "32": {
+      "$value": "32px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "64": {
+      "$value": "64px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "96": {
+      "$value": "96px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "128": {
+      "$value": "128px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "page-gutter": {
+      "$value": "32px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "page-gutter-mobile": {
+      "$value": "24px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    }
+  },
+  "radius": {
+    "control": {
+      "$value": "4px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "card": {
+      "$value": "8px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    },
+    "photo": {
+      "$value": "16px",
+      "$type": "dimension",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter"
+        }
+      }
+    }
+  },
+  "shadow": {
+    "card-dark": {
+      "$value": "0 0 20px rgba(0,0,0,0.2)",
+      "$type": "shadow",
+      "$description": "overlap card, MENU button",
+      "$extensions": {
+        "anydesign": {
+          "source": "design.md frontmatter",
+          "confidence": "high"
+        }
+      }
+    }
+  },
+  "$extensions": {
+    "anydesign": {
+      "source": "https://www.somerstone.com.au/about",
+      "captured_at": "2026-10-27",
+      "method": "generated from design.md by scripts/build_tokens_json.py",
+      "spec": "W3C Design Tokens Community Group 2025.10"
+    }
+  }
+}
