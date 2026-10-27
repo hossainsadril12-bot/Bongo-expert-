@@ -1,4 +1,5 @@
 import BlurWords from './BlurWords'
+import { navLinks, pageHrefs } from '../lib/nav'
 
 // Underline draws in from the left on hover and leaves to the right
 const underlineLink =
@@ -6,14 +7,10 @@ const underlineLink =
 // Icons lift a touch and brighten
 const iconLink = 'opacity-85 transition-[opacity,translate] duration-500 ease-lux hover:-translate-y-0.5 hover:opacity-100'
 
-const links = [
-  { label: 'Work', href: '#work' },
-  { label: 'Services', href: '#services' },
-  { label: 'About', href: '#about' },
-  { label: 'Process', href: '#process' },
-]
-
-export default function Footer() {
+// `page` picks the link targets: anchors on the home page, links back home elsewhere
+export default function Footer({ page = 'home' }) {
+  const links = navLinks(page)
+  const hrefs = pageHrefs(page)
   return (
     <footer className="w-full bg-gradient-to-b from-[#0a1015] from-[32%] to-[#006ce6] to-[126%] text-white">
       <div className="mx-auto flex min-h-[482px] max-w-[1320px] flex-col justify-between gap-12 px-5 pt-14 pb-10 lg:px-[60px] xl:px-0">
@@ -30,7 +27,7 @@ export default function Footer() {
               focus.
             </p>
             <a
-              href="#contact"
+              href={hrefs.contact}
               className="inline-flex h-14 items-center justify-center rounded-full bg-blue-active px-6 transition-[background-color,scale] duration-500 ease-lux hover:bg-blue-normal active:scale-[0.98]"
             >
               Start a Project

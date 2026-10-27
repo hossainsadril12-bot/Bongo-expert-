@@ -25,7 +25,7 @@ function scrollToHash(href) {
   else document.querySelector(href)?.scrollIntoView()
 }
 
-export default function MobileMenu({ links, buttonMotion }) {
+export default function MobileMenu({ links, buttonMotion, homeHref = '#', contactHref = '#contact' }) {
   const [open, setOpen] = useState(false)
   const dialogRef = useRef(null)
   const reduce = useReducedMotion()
@@ -39,10 +39,12 @@ export default function MobileMenu({ links, buttonMotion }) {
   // Release the page if the menu unmounts while open (e.g. hot reload, rotating to tablet width)
   useEffect(() => () => lockPage(false), [])
 
-  // Close on any link: release the page straight away so the glide runs while the panel lifts away
+  // Close on any link: release the page straight away so the glide runs while the panel lifts away.
+  // Links to another page (e.g. "/#services" from /projects) navigate normally.
   const go = (e, href) => {
-    e.preventDefault()
     lockPage(false)
+    if (!href.startsWith('#')) return
+    e.preventDefault()
     scrollToHash(href)
     setOpen(false)
   }
@@ -100,7 +102,7 @@ export default function MobileMenu({ links, buttonMotion }) {
             {open && (
               <motion.div key="panel" className="flex h-full flex-col bg-white px-5 pt-9 pb-10" {...panel}>
                 <div className="flex h-[72px] items-center justify-between gap-4">
-                  <a href="#" className="relative ml-1 block size-[65px] shrink-0" aria-label="Bongo home" onClick={(e) => go(e, '#')}>
+                  <a href={homeHref} className="relative ml-1 block size-[65px] shrink-0" aria-label="Bongo home" onClick={(e) => go(e, homeHref)}>
                     <span className="absolute inset-0 rounded-full bg-gradient-to-b from-[#3a7dff] from-[7%] to-[#234b99] to-[89%]" />
                     <img src="/assets/logo-mark.svg" alt="" className="absolute left-[17.5px] top-[13.75px] h-[36.25px] w-[35.5px]" />
                   </a>
@@ -138,7 +140,7 @@ export default function MobileMenu({ links, buttonMotion }) {
                         exit: { opacity: 0, transition: { duration: 0.3 } },
                       })}
                 >
-                  <StartButton onClick={(e) => go(e, '#contact')} />
+                  <StartButton href={contactHref} onClick={(e) => go(e, contactHref)} />
                 </motion.div>
               </motion.div>
             )}

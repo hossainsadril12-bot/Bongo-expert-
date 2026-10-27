@@ -191,7 +191,7 @@ export default function Projects() {
             </h2>
           </div>
           <motion.a
-            href="#work"
+            href="/projects"
             className="mb-3 shrink-0 text-base leading-[1.5] text-secondary underline underline-offset-4 transition-colors duration-500 ease-lux hover:text-ink"
             variants={v.fade}
             custom={0.8}

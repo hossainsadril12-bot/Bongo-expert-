@@ -76,7 +76,18 @@ console.log('\nDesktop 1920x945')
   })
 
   await check('hero intro settles: headline and CTA fully visible', async () => {
-    await page.waitForTimeout(3200)
+    // The CTA lands 1.9s + 1.7s after mount; poll for that instead of a fixed sleep, which
+    // failed whenever the dev server was slower to mount the page
+    await page
+      .waitForFunction(
+        () => {
+          const cta = [...document.querySelectorAll('a')].find((a) => a.textContent.includes('Start a Project') && a.querySelector('img'))
+          return cta && Number(getComputedStyle(cta.parentElement).opacity) === 1
+        },
+        null,
+        { timeout: 6000, polling: 100 },
+      )
+      .catch(() => {})
     const s = await page.evaluate(() => {
       const op = (el) => Number(getComputedStyle(el).opacity)
       const lines = [...document.querySelectorAll('h1 > span')].map(op)
@@ -104,7 +115,7 @@ console.log('\nDesktop 1920x945')
   })
 
   await check('nav anchors land on their sections', async () => {
-    for (const [label, sel] of [['Process', '#process'], ['Work', '#work'], ['About', '#about']]) {
+    for (const [label, sel] of [['Process', '#process'], ['Services', '#services']]) {
       // Poll instead of fixed sleeps: the 2s anchor glide can run long on a busy dev server.
       // Let any running glide finish first, or Lenis carries on toward its old target after the jump.
       await settle(page)

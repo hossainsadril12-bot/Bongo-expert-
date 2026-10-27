@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "test": "vitest run", "test:e2e": "node e2e/landing.e2e.mjs"
+    "test": "vitest run",
+    "test:e2e": "node e2e/landing.e2e.mjs"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
     "lenis": "^1.3.26",
     "motion": "^14.1.0",
     "react": "^19.0.0",
